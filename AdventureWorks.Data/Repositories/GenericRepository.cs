@@ -4,60 +4,60 @@ using System.Threading.Tasks;
 
 namespace AdventureWorks.Data.Repositories
 {
-    public class GenericRepository<TEntity>
+    public abstract class GenericRepository<TEntity>
         where TEntity : class
     {
-        private readonly AdventureWorksContext context;
+        private readonly AdventureWorksContext _context;
 
-        public GenericRepository(AdventureWorksContext context)
+        public GenericRepository(AdventureWorksContext _context)
         {
-            this.context = context;
+            this._context = _context;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await context
+            return await _context
                 .Set<TEntity>()
                 .AsNoTracking()
                 .ToListAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task<TEntity> Get<T>(T id)
+        public async Task<TEntity> GetAsync<T>(T id)
         {
-            return await context
+            return await _context
                 .Set<TEntity>()
                 .FindAsync(id)
                 .ConfigureAwait(false);
         }
 
-        public async Task Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
-            context
+            _context
                 .Entry(entity)
                 .State = EntityState.Added;
 
-            await context
+            await _context
                 .SaveChangesAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
-            context.Set<TEntity>()
+            _context.Set<TEntity>()
                 .Update(entity);
 
-            await context.SaveChangesAsync()
+            await _context.SaveChangesAsync()
                 .ConfigureAwait(false);
         }
 
-        public async Task Delete(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
-            context
+            _context
                 .Set<TEntity>()
                 .Remove(entity);
 
-            await context.SaveChangesAsync()
+            await _context.SaveChangesAsync()
                 .ConfigureAwait(false);
         }
     }

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AdventureWorks.Business.Models;
+using AdventureWorks.Data.Entities;
+using AdventureWorks.Data.Repositories;
 
 namespace AdventureWorks.Business.Services
 {
-    public class ProductService
+    public class ProductService : GenericService<ProductModel, ProductEntity>
     {
-        
+        public ProductService(GenericRepository<ProductModel> _repository) : base(_repository)
+        { }
     }
 }
