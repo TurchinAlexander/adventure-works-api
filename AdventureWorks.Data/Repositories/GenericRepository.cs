@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace AdventureWorks.Data.Repositories
 {
-    public abstract class GenericRepository<TEntity>
+    public class GenericRepository<TEntity>
         where TEntity : class
     {
         private readonly AdventureWorksContext _context;

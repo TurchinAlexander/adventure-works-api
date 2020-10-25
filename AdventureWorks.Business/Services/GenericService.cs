@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace AdventureWorks.Business.Services
 {
-    public abstract class GenericService<TEntity, TModel>
-        where TEntity : class
+    public class GenericService<TModel, TEntity>
         where TModel : class
+        where TEntity : class
     {
         private readonly GenericRepository<TEntity> _repository;
 
@@ -45,6 +45,17 @@ namespace AdventureWorks.Business.Services
         public async Task DeleteAsync(TModel model)
         {
             var entity = model.Adapt<TEntity>();
+            await _repository.DeleteAsync(entity);
+        }
+
+        public async Task DeleteAsync<T>(T id)
+        {
+            var entity = await _repository.GetAsync(id);
+            if (entity == null)
+            {
+                return;
+            }
+
             await _repository.DeleteAsync(entity);
         }
     }
