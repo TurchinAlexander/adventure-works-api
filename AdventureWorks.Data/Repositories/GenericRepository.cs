@@ -23,7 +23,7 @@ namespace AdventureWorks.Data.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task<TEntity> GetAsync<T>(T id)
+        public async Task<TEntity> GetAsync(int id)
         {
             return await _context
                 .Set<TEntity>()

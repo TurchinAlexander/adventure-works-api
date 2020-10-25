@@ -23,7 +23,7 @@ namespace AdventureWorks.Business.Services
             return entities.Adapt<IEnumerable<TModel>>();
         }
 
-        public async Task<TModel> GetAsync<T>(T id)
+        public async Task<TModel> GetAsync(int id)
         {
             var entitiy = await _repository.GetAsync(id);
 
@@ -48,7 +48,7 @@ namespace AdventureWorks.Business.Services
             await _repository.DeleteAsync(entity);
         }
 
-        public async Task DeleteAsync<T>(T id)
+        public async Task DeleteAsync(int id)
         {
             var entity = await _repository.GetAsync(id);
             if (entity == null)

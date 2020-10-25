@@ -1,9 +1,8 @@
-﻿using AdventureWorks.Data.Interfaces;
-using System;
+﻿using System;
 
 namespace AdventureWorks.Data.Entities
 {
-    public class ProductEntity //: IEntityIdentity<Int32>
+    public class ProductEntity
     {
         public Int32 ProductId { get; set; }
 

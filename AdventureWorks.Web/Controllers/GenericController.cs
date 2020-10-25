@@ -23,7 +23,7 @@ namespace AdventureWorks.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public virtual async Task<TModel> GetAsync<T>(T id)
+        public virtual async Task<TModel> GetAsync(int id)
         {
             return await _service.GetAsync(id);
         }
@@ -47,7 +47,7 @@ namespace AdventureWorks.Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task Delete<T>(T id)
+        public virtual async Task Delete(int id)
         {
             await _service.DeleteAsync(id);
         }
