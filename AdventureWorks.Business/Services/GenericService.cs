@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AdventureWorks.Business.Services
 {
-    public class GenericService<TModel, TEntity>
+    public class GenericService<TModel, TModelRequest, TEntity>
         where TModel : class
         where TEntity : class
     {
@@ -30,7 +30,7 @@ namespace AdventureWorks.Business.Services
             return entitiy.Adapt<TModel>();
         }
 
-        public async Task CreateAsync(TModel model)
+        public async Task CreateAsync(TModelRequest model)
         {
             var entity = model.Adapt<TEntity>();
             await _repository.AddAsync(entity);

@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdventureWorks.Web.Controllers
 {
     [Route("[controller]")]
-    public class ProductController : GenericController<ProductModel, ProductEntity>
+    public class ProductController : GenericController<ProductModel, ProductModelRequest, ProductEntity>
     {
-        public ProductController(GenericService<ProductModel, ProductEntity> _service) : base(_service)
+        public ProductController(GenericService<ProductModel, ProductModelRequest, ProductEntity> _service) : base(_service)
         { }
     }
 }

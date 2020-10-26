@@ -1,23 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AdventureWorks.Business.Models;
 using AdventureWorks.Business.Services;
 using AdventureWorks.Data;
-using AdventureWorks.Data.Entities;
 using AdventureWorks.Data.Repositories;
 using AdventureWorks.Web.Controllers;
-using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace AdventureWorks.Web
 {
@@ -34,8 +25,8 @@ namespace AdventureWorks.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient(typeof(GenericRepository<>));
-            services.AddTransient(typeof(GenericService<,>));
-            services.AddTransient(typeof(GenericController<,>));
+            services.AddTransient(typeof(GenericService<,,>));
+            services.AddTransient(typeof(GenericController<,,>));
 
             services.AddDbContext<AdventureWorksContext>(options =>
             {
@@ -43,6 +34,11 @@ namespace AdventureWorks.Web
             });
 
             services.AddControllers();
+
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "Adventure Works API", Version = "v1" });
+            });
         }
 
         // public void ConfigureContainer(ContainerBuilder builder)
@@ -63,6 +59,12 @@ namespace AdventureWorks.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

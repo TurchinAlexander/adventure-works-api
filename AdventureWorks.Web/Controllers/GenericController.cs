@@ -1,53 +1,68 @@
 ﻿using AdventureWorks.Business.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdventureWorks.Web.Controllers
 {
-    public class GenericController<TModel, TEntity> : ControllerBase
+    [Produces("application/json")]
+    public class GenericController<TModel, TModelRequest, TEntity> : ControllerBase
         where TEntity : class
         where TModel : class
     {
-        private readonly GenericService<TModel, TEntity> _service;
+        private readonly GenericService<TModel, TModelRequest, TEntity> _service;
 
-        public GenericController(GenericService<TModel, TEntity> _service)
+        public GenericController(GenericService<TModel, TModelRequest, TEntity> _service)
         {
             this._service = _service;
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public virtual async Task<IEnumerable<TModel>> GetAllAsync()
         {
             return await _service.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public virtual async Task<TModel> GetAsync(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public virtual async Task<TModel> GetAsync([FromRoute] int id)
         {
             return await _service.GetAsync(id);
         }
 
         [HttpPost]
-        public virtual async Task Create(TModel model)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public virtual async Task Create([FromBody] TModelRequest model)
         {
             await _service.CreateAsync(model);
         }
 
         [HttpPut]
-        public virtual async Task Update(TModel model)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public virtual async Task Update([FromBody] TModel model)
         {
             await _service.UpdateAsync(model);
         }
 
         [HttpDelete]
-        public virtual async Task Delete(TModel model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public virtual async Task Delete([FromBody] TModel model)
         {
             await _service.DeleteAsync(model);
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task Delete(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public virtual async Task Delete([FromRoute] int id)
         {
             await _service.DeleteAsync(id);
         }
