@@ -2,6 +2,7 @@ using AdventureWorks.Business.Services;
 using AdventureWorks.Data;
 using AdventureWorks.Data.Repositories;
 using AdventureWorks.Web.Controllers;
+using AdventureWorks.Web.Filter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -39,12 +40,12 @@ namespace AdventureWorks.Web
             {
                 s.SwaggerDoc("v1", new OpenApiInfo { Title = "Adventure Works API", Version = "v1" });
             });
-        }
 
-        // public void ConfigureContainer(ContainerBuilder builder)
-        // {
-        //     builder.RegisterType(typeof(GenericRepository<>))
-        // }
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ExceptionFilter>();
+            });
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
