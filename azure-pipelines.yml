@@ -19,11 +19,11 @@ steps:
       command: "restore"
 
   - task: DotNetCoreCLI@2
-    displayName: "Build the project in $(buildConfigration) mode"
+    displayName: "Build the project in $(buildConfiguration) mode"
     inputs:
       command: "build"
       projects: "**/*.csproj"
-      arguments: "--configuration $(buildConfiguration)"
+      arguments: "--configuration $(buildConfiguration) --no-restore"
 
   - task: DotNetCoreCLI@2
     displayName: "Publish the project in $(buildConfiguration) mode"
