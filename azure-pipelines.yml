@@ -4,14 +4,35 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "ubuntu-latest"
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: "Release"
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: "Restore NuGet packages"
+    inputs:
+      command: "restore"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Build the project in $(buildConfigration) mode"
+    inputs:
+      command: "build"
+      projects: "**/*.csproj"
+      arguments: "--configuration $(buildConfiguration)"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Publish the project in $(buildConfiguration) mode"
+    inputs:
+      command: "publish"
+      publishWebProjects: true
+      arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)
+      ArtifactName: "Adventure-Works-API"
