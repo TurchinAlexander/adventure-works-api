@@ -9,9 +9,6 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
-variables:
-  buildConfiguration: "Release"
-
 steps:
   - task: DotNetCoreCLI@2
     displayName: "Restore NuGet packages"
@@ -19,20 +16,29 @@ steps:
       command: "restore"
 
   - task: DotNetCoreCLI@2
-    displayName: "Build the project in $(buildConfiguration) mode"
+    displayName: "Build the project in $(BuildConfiguration) mode"
     inputs:
       command: "build"
       projects: "**/*.csproj"
-      arguments: "--configuration $(buildConfiguration) --no-restore"
+      arguments: "--configuration $(BuildConfiguration) --no-restore"
 
   - task: DotNetCoreCLI@2
-    displayName: "Publish the project in $(buildConfiguration) mode"
+    displayName: "Publish the project in $(BuildConfiguration) mode"
     inputs:
       command: "publish"
       publishWebProjects: true
-      arguments: "--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)"
+      arguments: "--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)"
 
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: $(Build.ArtifactStagingDirectory)
       ArtifactName: "Adventure-Works-API"
+
+  - task: AzureRmWebAppDeployment@4
+    displayName: "Deploy the project to $(WebApplicationName) Web App"
+    inputs:
+      ConnectionType: AzureRM
+      azureSubscription: $(AzureSubscription)
+      appType: webApp
+      WebAppName: $(WebApplicationName)
+      packageForLinux: $(System.DefaultWorkingDirectory)/**/*.zip
