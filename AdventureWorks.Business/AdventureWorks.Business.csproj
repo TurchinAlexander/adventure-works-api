@@ -1,14 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Mapster" Version="6.5.1" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Mapster" Version="6.5.1" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AdventureWorks.Data\AdventureWorks.Data.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\AdventureWorks.Business.Interfaces\AdventureWorks.Business.Interfaces.csproj" />
+        <ProjectReference Include="..\AdventureWorks.Data.Interfaces\AdventureWorks.Data.Interfaces.csproj" />
+    </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using AdventureWorks.Business.Services;
+﻿using AdventureWorks.Business.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace AdventureWorks.Web.Controllers
 {
     [Produces("application/json")]
-    public class GenericController<TModel, TModelRequest, TEntity> : ControllerBase
+    public class Controller<TModel, TModelRequest, TEntity> : ControllerBase
         where TEntity : class
         where TModel : class
     {
-        private readonly GenericService<TModel, TModelRequest, TEntity> _service;
+        private readonly IService<TModel, TModelRequest, TEntity> _service;
 
-        public GenericController(GenericService<TModel, TModelRequest, TEntity> _service)
+        public Controller(IService<TModel, TModelRequest, TEntity> _service)
         {
             this._service = _service;
         }

@@ -1,17 +1,18 @@
-﻿using AdventureWorks.Data.Repositories;
+﻿using AdventureWorks.Business.Interfaces;
+using AdventureWorks.Data.Interfaces;
 using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AdventureWorks.Business.Services
+namespace AdventureWorks.Business
 {
-    public class GenericService<TModel, TModelRequest, TEntity>
+    public class Service<TModel, TModelRequest, TEntity> : IService<TModel, TModelRequest, TEntity>
         where TModel : class
         where TEntity : class
     {
-        private readonly GenericRepository<TEntity> _repository;
+        private readonly IRepository<TEntity> _repository;
 
-        public GenericService(GenericRepository<TEntity> _repository)
+        public Service(IRepository<TEntity> _repository)
         {
             this._repository = _repository;
         }

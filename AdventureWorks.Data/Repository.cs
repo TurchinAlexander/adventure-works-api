@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AdventureWorks.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AdventureWorks.Data.Repositories
 {
-    public class GenericRepository<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
         private readonly AdventureWorksContext _context;
 
-        public GenericRepository(AdventureWorksContext _context)
+        public Repository(AdventureWorksContext _context)
         {
             this._context = _context;
         }

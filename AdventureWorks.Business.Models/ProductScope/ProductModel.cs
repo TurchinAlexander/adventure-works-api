@@ -1,9 +1,11 @@
 ﻿using System;
 
-namespace AdventureWorks.Business.Models
+namespace AdventureWorks.Business.Models.ProductScope
 {
-    public class ProductModelRequest
+    public class ProductModel
     {
+        public int ProductId { get; set; }
+
         public string Name { get; set; }
 
         public bool MakeFlag { get; set; }
@@ -12,9 +14,9 @@ namespace AdventureWorks.Business.Models
 
         public string Color { get; set; }
 
-        public Int16 SafetyStockLevel { get; set; }
+        public short SafetyStockLevel { get; set; }
 
-        public Int16 ReorderPoint { get; set; }
+        public short ReorderPoint { get; set; }
 
         public decimal StandardCost { get; set; }
 
@@ -28,7 +30,7 @@ namespace AdventureWorks.Business.Models
 
         public decimal? Weight { get; set; }
 
-        public Int32 DaysToManufacture { get; set; }
+        public int DaysToManufacture { get; set; }
 
         public string ProductLine { get; set; }
 
@@ -36,9 +38,9 @@ namespace AdventureWorks.Business.Models
 
         public string Style { get; set; }
 
-        public Int32? ProductSubcategoryId { get; set; }
+        public int? ProductSubcategoryId { get; set; }
 
-        public Int32? ProductModelId { get; set; }
+        public int? ProductModelId { get; set; }
 
         public DateTime SellStartDate { get; set; }
 

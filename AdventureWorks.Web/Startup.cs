@@ -1,7 +1,3 @@
-using AdventureWorks.Business.Services;
-using AdventureWorks.Data;
-using AdventureWorks.Data.Repositories;
-using AdventureWorks.Web.Controllers;
 using AdventureWorks.Web.Filter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,14 +21,14 @@ namespace AdventureWorks.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient(typeof(GenericRepository<>));
-            services.AddTransient(typeof(GenericService<,,>));
-            services.AddTransient(typeof(GenericController<,,>));
+            // services.AddTransient(typeof(GenericRepository<>));
+            // services.AddTransient(typeof(GenericService<,,>));
+            // services.AddTransient(typeof(GenericController<,,>));
 
-            services.AddDbContext<AdventureWorksContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("AdventureWorks"));
-            });
+            // services.AddDbContext<AdventureWorksContext>(options =>
+            // {
+            //     options.UseSqlServer(Configuration.GetConnectionString("AdventureWorks"));
+            // });
 
             services.AddControllers();
 

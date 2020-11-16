@@ -14,6 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AdventureWorks.Business\AdventureWorks.Business.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Business.Interfaces\AdventureWorks.Business.Interfaces.csproj" />
     </ItemGroup>
 </Project>
