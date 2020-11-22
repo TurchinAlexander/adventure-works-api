@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AdventureWorks.Web.DependencyConfiguration
 {
-    public class DataConfig : IRegisterModule
+    public class DataModule : IRegisterModule
     {
         public void RegisterDependencies(IServiceCollection services)
         {

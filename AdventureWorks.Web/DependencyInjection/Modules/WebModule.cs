@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AdventureWorks.Web.DependencyConfiguration
 {
-    public class WebConfig : IRegisterModule
+    public class WebModule : IRegisterModule
     {
         public void RegisterDependencies(IServiceCollection services)
         {
