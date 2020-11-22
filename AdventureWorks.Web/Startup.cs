@@ -1,3 +1,4 @@
+using System.Configuration;
 using AdventureWorks.Business.Services;
 using AdventureWorks.Data;
 using AdventureWorks.Data.Repositories;
@@ -9,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace AdventureWorks.Web
@@ -22,12 +25,14 @@ namespace AdventureWorks.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. Use this method to add
+        // services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient(typeof(GenericRepository<>));
             services.AddTransient(typeof(GenericService<,,>));
-            services.AddTransient(typeof(GenericController<,,>));
+            // services.AddTransient(typeof(GenericController<,,>));
+            services.AddTransient(typeof(ProductController));
 
             services.AddDbContext<AdventureWorksContext>(options =>
             {
@@ -43,17 +48,24 @@ namespace AdventureWorks.Web
 
             services.AddMvc(options =>
             {
-                options.Filters.Add<ExceptionFilter>();
+                // options.Filters.Add<ExceptionFilter>();
             });
+
+            services.AddOptions();
+
+            services.Configure<AzureSettings>(Configuration.GetSection("Azure"));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // This method gets called by the runtime. Use this method to configure
+        // the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IOptions<AzureSettings> azureSettings)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            loggerFactory.AddTableStorage(azureSettings.Value.Table, azureSettings.Value.ConnectionString);
 
             app.UseHttpsRedirection();
 
