@@ -14,7 +14,6 @@ namespace AdventureWorks.Web.DependencyInjection
         public DefaultRegisterContainer(IServiceCollection serviceCollection)
         {
             this.serviceCollection = serviceCollection;
-            this.configuration = configuration;
         }
 
         public IRegisterContainer RegisterModule<TModule>()
@@ -31,7 +30,7 @@ namespace AdventureWorks.Web.DependencyInjection
             {
                 var moduleTypes = assembly
                     .GetTypes()
-                    .Where(t => typeof(IRegisterModule).IsAssignableFrom(t));
+                    .Where(t => t.IsClass && typeof(IRegisterModule).IsAssignableFrom(t));
 
                 foreach (var moduleType in moduleTypes)
                 {
@@ -43,16 +42,16 @@ namespace AdventureWorks.Web.DependencyInjection
 
         public IRegisterContainer RegisterModule(Type moduleType)
         {
-            var types = new[]
+            var types = new Type[]
             {
-                serviceCollection.GetType(),
-                configuration.GetType()
+                // serviceCollection.GetType()//,
+                //configuration.GetType()
             };
 
             var arguments = new object[]
             {
-                serviceCollection,
-                configuration
+                // serviceCollection//,
+                //configuration
             };
 
             this.RegisterModule(moduleType, types, arguments);
@@ -62,10 +61,10 @@ namespace AdventureWorks.Web.DependencyInjection
 
         private void RegisterModule(Type moduleType, Type[] argumentTypes, object[] argumentValues)
         {
-            var module = moduleType.GetType()
-                .GetConstructor(argumentTypes)?
-                .Invoke(argumentValues) as IRegisterModule;
+            // var module = moduleType.GetType() .GetConstructor(argumentTypes)?
+            // .Invoke(argumentValues) as IRegisterModule;
 
+            var module = Activator.CreateInstance(moduleType) as IRegisterModule;
             module.RegisterDependencies(this.serviceCollection);
         }
     }

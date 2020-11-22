@@ -9,7 +9,7 @@ namespace AdventureWorks.Web.Filter
         private readonly IWebHostEnvironment hostingEnvironment;
         private readonly ILogger logger;
 
-        public ExceptionFilter(IWebHostEnvironment hostingEnvironment, ILogger logger)
+        public ExceptionFilter(IWebHostEnvironment hostingEnvironment, ILogger<ExceptionFilter> logger)
         {
             this.hostingEnvironment = hostingEnvironment;
             this.logger = logger;

@@ -1,11 +1,15 @@
 using AdventureWorks.Web.Filter;
+using AdventureWorks.Web.Utils;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace AdventureWorks.Web
 {
@@ -18,18 +22,10 @@ namespace AdventureWorks.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. Use this method to add
+        // services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddTransient(typeof(GenericRepository<>));
-            // services.AddTransient(typeof(GenericService<,,>));
-            // services.AddTransient(typeof(GenericController<,,>));
-
-            // services.AddDbContext<AdventureWorksContext>(options =>
-            // {
-            //     options.UseSqlServer(Configuration.GetConnectionString("AdventureWorks"));
-            // });
-
             services.AddControllers();
 
             services.AddSwaggerGen(s =>
@@ -37,13 +33,26 @@ namespace AdventureWorks.Web
                 s.SwaggerDoc("v1", new OpenApiInfo { Title = "Adventure Works API", Version = "v1" });
             });
 
+            var projectAssemblies = Assembly.GetExecutingAssembly()
+                .GetReferencedAssemblies()
+                .Where(a => a.FullName.Contains("AdventureWorks"))
+                .Select(a => Assembly.Load(a))
+                .ToArray();
+
+            // projectAssemblies = projectAssemblies.Where(a => a.FullName.Contains("AdventureWorks")).ToArray();
+
+            services.AddAutoMapper(projectAssemblies);
+
+            services.AddDependecyRegistration();
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<ExceptionFilter>();
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure
+        // the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

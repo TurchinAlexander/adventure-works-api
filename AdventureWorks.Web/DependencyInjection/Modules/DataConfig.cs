@@ -24,11 +24,11 @@ namespace AdventureWorks.Web.DependencyConfiguration
 
         private string GetConnectionString()
         {
-            const string DefaultConnectionStringName = "Default";
+            // const string DefaultConnectionStringName = "Default";
 
-            return ConfigurationManager
-                .ConnectionStrings[DefaultConnectionStringName]
-                .ConnectionString;
+            // return ConfigurationManager
+            // .ConnectionStrings[DefaultConnectionStringName] .ConnectionString;
+            return "Server=DESKTOP-SU1K2U8;Database=AdventureWorks2017;Trusted_Connection=True;";
         }
     }
 }

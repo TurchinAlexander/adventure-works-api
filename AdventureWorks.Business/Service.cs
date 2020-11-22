@@ -1,6 +1,6 @@
 ﻿using AdventureWorks.Business.Interfaces;
 using AdventureWorks.Data.Interfaces;
-using Mapster;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,41 +11,46 @@ namespace AdventureWorks.Business
         where TEntity : class
     {
         private readonly IRepository<TEntity> _repository;
+        private readonly IMapper _mapper;
 
-        public Service(IRepository<TEntity> _repository)
+        public Service(IRepository<TEntity> _repository, IMapper _mapper)
         {
             this._repository = _repository;
+            this._mapper = _mapper;
         }
 
         public async Task<IEnumerable<TModel>> GetAllAsync()
         {
             var entities = await _repository.GetAllAsync();
 
-            return entities.Adapt<IEnumerable<TModel>>();
+            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(entities);
         }
 
         public async Task<TModel> GetAsync(int id)
         {
-            var entitiy = await _repository.GetAsync(id);
+            var entity = await _repository.GetAsync(id);
 
-            return entitiy.Adapt<TModel>();
+            return _mapper.Map<TModel>(entity);
         }
 
         public async Task CreateAsync(TModelRequest model)
         {
-            var entity = model.Adapt<TEntity>();
+            var entity = _mapper.Map<TEntity>(model);
+
             await _repository.AddAsync(entity);
         }
 
         public async Task UpdateAsync(TModel model)
         {
-            var entity = model.Adapt<TEntity>();
+            var entity = _mapper.Map<TEntity>(model);
+
             await _repository.UpdateAsync(entity);
         }
 
         public async Task DeleteAsync(TModel model)
         {
-            var entity = model.Adapt<TEntity>();
+            var entity = _mapper.Map<TEntity>(model);
+
             await _repository.DeleteAsync(entity);
         }
 
