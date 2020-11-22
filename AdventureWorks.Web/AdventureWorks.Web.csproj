@@ -9,11 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\AdventureWorks.Business.Interfaces\AdventureWorks.Business.Interfaces.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Business.Models\AdventureWorks.Business.Models.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Business\AdventureWorks.Business.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Data.Interfaces\AdventureWorks.Data.Interfaces.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Data.Models\AdventureWorks.Data.Models.csproj" />
+      <ProjectReference Include="..\AdventureWorks.Data\AdventureWorks.Data.csproj" />
     </ItemGroup>
 </Project>

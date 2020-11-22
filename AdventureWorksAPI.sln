@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Data", "Adve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Business", "AdventureWorks.Business\AdventureWorks.Business.csproj", "{171D2C7B-C1C4-44DE-A5BE-DDED9B4A2E61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Business.Interfaces", "AdventureWorks.Business.Interfaces\AdventureWorks.Business.Interfaces.csproj", "{22C967AD-DC66-4EB4-8CE5-9E73A746F055}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Business.Interfaces", "AdventureWorks.Business.Interfaces\AdventureWorks.Business.Interfaces.csproj", "{22C967AD-DC66-4EB4-8CE5-9E73A746F055}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Data.Interfaces", "AdventureWorks.Data.Interfaces\AdventureWorks.Data.Interfaces.csproj", "{6BD55D56-B49E-40CB-993B-5170EF37F12E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Data.Interfaces", "AdventureWorks.Data.Interfaces\AdventureWorks.Data.Interfaces.csproj", "{6BD55D56-B49E-40CB-993B-5170EF37F12E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Business.Models", "AdventureWorks.Business.Models\AdventureWorks.Business.Models.csproj", "{2A311969-1E1C-4F4B-B4E9-3DF980ACBFA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Business.Models", "AdventureWorks.Business.Models\AdventureWorks.Business.Models.csproj", "{2A311969-1E1C-4F4B-B4E9-3DF980ACBFA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Data.Models", "AdventureWorks.Data.Models\AdventureWorks.Data.Models.csproj", "{CD341A1B-9C51-40DA-8EDF-77015801A199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Data.Models", "AdventureWorks.Data.Models\AdventureWorks.Data.Models.csproj", "{CD341A1B-9C51-40DA-8EDF-77015801A199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
