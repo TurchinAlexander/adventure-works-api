@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AdventureWorks.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public abstract class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
         private readonly AdventureWorksContext _context;
@@ -15,7 +15,7 @@ namespace AdventureWorks.Data.Repositories
             this._context = _context;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await _context
                 .Set<TEntity>()
@@ -24,7 +24,7 @@ namespace AdventureWorks.Data.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public virtual async Task<TEntity> GetAsync(int id)
         {
             return await _context
                 .Set<TEntity>()
@@ -32,7 +32,7 @@ namespace AdventureWorks.Data.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task AddAsync(TEntity entity)
+        public virtual async Task AddAsync(TEntity entity)
         {
             _context
                 .Entry(entity)
@@ -43,7 +43,7 @@ namespace AdventureWorks.Data.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public virtual async Task UpdateAsync(TEntity entity)
         {
             _context.Set<TEntity>()
                 .Update(entity);
@@ -52,7 +52,7 @@ namespace AdventureWorks.Data.Repositories
                 .ConfigureAwait(false);
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public virtual async Task DeleteAsync(TEntity entity)
         {
             _context
                 .Set<TEntity>()

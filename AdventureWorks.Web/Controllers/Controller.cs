@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AdventureWorks.Web.Controllers
 {
     [Produces("application/json")]
-    public class Controller<TModel, TModelRequest, TEntity> : ControllerBase
+    public abstract class Controller<TModel, TModelRequest, TEntity> : ControllerBase
         where TEntity : class
         where TModel : class
     {
